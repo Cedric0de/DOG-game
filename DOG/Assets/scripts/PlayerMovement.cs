@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float velocity = 5f;
     [SerializeField] float turnSpeed = 10;
+    [SerializeField] LayerMask wall;
+    [SerializeField] Transform wallCheck;
     //PlayerControls controls;
 
     Vector2 input;
@@ -40,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         CalculateDirection();
         Rotation();
         Move();
+        walled();
         /*
         move = controls.Gameplay.Move.ReadValue<Vector2>();
         Vector2 m = new Vector2(move.x,move.y) * Time.deltaTime;
@@ -81,5 +84,12 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         transform.position += transform.forward * velocity * Time.deltaTime;
+    }
+    void walled()
+    {
+        if (Physics.CheckSphere(wallCheck.position, .2f, wall))
+        {
+            transform.position -= transform.forward * velocity * Time.deltaTime * 2;
+        }
     }
 }
