@@ -19,10 +19,10 @@ public class CameraController : MonoBehaviour
         MoveWithTarget();
         LookAtTarget();
 
-        if (Input.GetKeyDown(KeyCode.G) && !smoothRotating){
+        if ((Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire1")) && !smoothRotating){
             StartCoroutine("RotateAroundTarget", 45);
         }
-        if (Input.GetKeyDown(KeyCode.H) && !smoothRotating){
+        if ((Input.GetMouseButtonDown(1) || Input.GetButtonDown("Fire2")) && !smoothRotating){
             StartCoroutine("RotateAroundTarget", -45);
         }
     }

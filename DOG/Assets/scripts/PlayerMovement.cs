@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float turnSpeed = 10;
     [SerializeField] LayerMask wall;
     [SerializeField] Transform wallCheck;
+    [SerializeField] Transform gameObj;
     //PlayerControls controls;
 
     Vector2 input;
@@ -43,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
         Rotation();
         Move();
         walled();
+        gameObj.transform.eulerAngles = new Vector3(
+            gameObj.transform.eulerAngles.x * 0,
+            gameObj.transform.eulerAngles.y * 0,
+            gameObj.transform.eulerAngles.z * 0
+        );
         /*
         move = controls.Gameplay.Move.ReadValue<Vector2>();
         Vector2 m = new Vector2(move.x,move.y) * Time.deltaTime;
@@ -67,14 +73,38 @@ public class PlayerMovement : MonoBehaviour
     */
     void GetInput()
     {
-        input.x = Input.GetAxisRaw("Horizontal");
-        input.y = Input.GetAxisRaw("Vertical");
+        // input.x = Input.GetAxisRaw("Horizontal");
+        // input.y = Input.GetAxisRaw("Vertical");
+
+
+        if (Input.GetAxisRaw("Horizontal")>0.4){
+            input.x = 1;
+        }
+        else if (Input.GetAxisRaw("Horizontal")<-0.4){
+            input.x = -1;
+        }
+        else
+        {
+            input.x=0;
+        }
+        if (Input.GetAxisRaw("Vertical")>0.4){
+            input.y = 1;
+        }
+        else if (Input.GetAxisRaw("Vertical")<-0.4){
+            input.y = -1;
+        }
+        else
+        {
+            input.y=0;
+        }
+        Debug.Log((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
     }
     void CalculateDirection()
     {
         angle = Mathf.Atan2(input.x,input.y);
         angle = Mathf.Rad2Deg * angle;
         angle += cam.eulerAngles.y;
+        
     }
     void Rotation()
     {
