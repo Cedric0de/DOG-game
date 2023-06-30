@@ -1,9 +1,34 @@
 fileFormatVersion: 2
-guid: 80a767053f07b9847a23a16df59e58f3
+guid: 545eae5d218428646a1bc30ae97e0063
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coyote
+    second: {fileID: 2100000, guid: 0c8af5ebc6bd4f54891ac1c69d79534c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coyote Belly
+    second: {fileID: 2100000, guid: 98fe535ee4068634a906ec6702a8ce06, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coyote Eyes
+    second: {fileID: 2100000, guid: cac746606a3ee8a4c92fa0b22b93fe3e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coyote Nose
+    second: {fileID: 2100000, guid: f0aec8060e744db4992558dc8cac4ea9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Coyote Top
+    second: {fileID: 2100000, guid: 2fbf7ad76f4f1804aaba258e6142b3aa, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d476ed3d0cf90f44b937ae7f24e7d389
+guid: 80a767053f07b9847a23a16df59e58f3
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,28 +7,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.001
-    second: {fileID: 2100000, guid: a927d4e2840f20140bac95e300ea5ec1, type: 2}
+      name: Eye Color
+    second: {fileID: 2100000, guid: f8e9adc527290124096d45b73cd68ff8, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.002
-    second: {fileID: 2100000, guid: 11e5ce9222af77a4780d1d8f14587900, type: 2}
+      name: Nose Color
+    second: {fileID: 2100000, guid: 893f96f30c276d04fb277aabdf397990, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.003
-    second: {fileID: 2100000, guid: 691d538dbf2bef14383ff4866ca9cb36, type: 2}
+      name: Rabbit Skin
+    second: {fileID: 2100000, guid: 860f946e172d39d47ad044d4a368fa85, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Material.004
-    second: {fileID: 2100000, guid: 7ec5efca49e9f3a4db86a007fea1ca7d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Material.005
-    second: {fileID: 2100000, guid: 1924450836ef46f438266c118e622285, type: 2}
+      name: Rabbit Skin 2
+    second: {fileID: 2100000, guid: 944f110e884cc8b48b0f1b425eb0d0b9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

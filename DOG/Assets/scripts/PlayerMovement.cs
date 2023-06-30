@@ -10,7 +10,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask wall;
     [SerializeField] Transform wallCheck;
     [SerializeField] Transform gameObj;
-    //PlayerControls controls;
+    float based;
+    float doubled;
+    float halved;
+    bool isSprinting;
+    bool isSneaking;
 
     Vector2 input;
     float angle;
@@ -20,14 +24,11 @@ public class PlayerMovement : MonoBehaviour
     
     void Awake()
     {
-        /*
-        controls = new PlayerControls();
-
-        controls.Gameplay.Grow.performed += ctx => Grow();
-
-        controls.Gameplay.Move.performed += ctx => move = ctx.ReadValue<Vector2>();
-        controls.Gameplay.Move.canceled += ctx => move = Vector2.zero;
-        */
+        based = velocity;
+        doubled = velocity*2;
+        halved = velocity*0.5f;
+        isSprinting = false;
+        isSneaking = false;
     }
     void Start()
     {
@@ -49,32 +50,33 @@ public class PlayerMovement : MonoBehaviour
             gameObj.transform.eulerAngles.y * 0,
             gameObj.transform.eulerAngles.z * 0
         );
+        if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking){
+            velocity = doubled;
+            gameObj.localScale = new Vector3(1.5f,1f,1.5f);
+            isSprinting = true;
+        }
+        else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
+            velocity = halved;
+            gameObj.localScale = new Vector3(0.5f,1f,0.5f);
+            isSneaking = true;
+        }
+        else
+        {
+            velocity = based;
+            gameObj.localScale = new Vector3(1f,1f,1f);
+            isSneaking = false;
+            isSprinting = false;
+        }
+
         /*
         move = controls.Gameplay.Move.ReadValue<Vector2>();
         Vector2 m = new Vector2(move.x,move.y) * Time.deltaTime;
         transform.Translate(m, Space.World);
         */
     }
-    /*
-    void Grow()
-    {
-        transform.localScale *= 1.1f;
-    }
 
-    void OnEnable()
-    {
-        controls.Gameplay.Enable();
-    }
-
-    void OnDisable()
-    {
-        controls.Gameplay.Disable();
-    }
-    */
     void GetInput()
     {
-        // input.x = Input.GetAxisRaw("Horizontal");
-        // input.y = Input.GetAxisRaw("Vertical");
 
 
         if (Input.GetAxisRaw("Horizontal")>0.4){
@@ -97,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         {
             input.y=0;
         }
-        Debug.Log((Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
+
     }
     void CalculateDirection()
     {
