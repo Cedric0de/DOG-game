@@ -8,6 +8,7 @@ public class bunnyMovement : MonoBehaviour
     public NavMeshAgent agent;
 
     public Transform player;
+    public Transform playerReal;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -19,6 +20,7 @@ public class bunnyMovement : MonoBehaviour
     //states
     public float sightRange;
     public bool playerInSightRange;
+    float panicTime = 0f;
 
 
     private void Awake()
@@ -32,6 +34,11 @@ public class bunnyMovement : MonoBehaviour
         
         if(!playerInSightRange) Idle();
         if(playerInSightRange) Run();
+        if(panicTime > 0)
+        {
+            panicTime -= Time.deltaTime;
+            agent.SetDestination(-playerReal.position);
+        }
     }
 
     private void Idle()
@@ -61,7 +68,7 @@ public class bunnyMovement : MonoBehaviour
     }
     private void Run()
     {
-        agent.SetDestination(player.position);
+        panicTime = 10;
     }
     private void OnDrawGizmosSelected()
     {

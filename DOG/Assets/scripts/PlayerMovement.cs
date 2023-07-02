@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask wall;
     [SerializeField] Transform wallCheck;
     [SerializeField] Transform gameObj;
+    public Vector3 infSize;
     float based;
     float doubled;
     float halved;
@@ -50,20 +51,21 @@ public class PlayerMovement : MonoBehaviour
             gameObj.transform.eulerAngles.y * 0,
             gameObj.transform.eulerAngles.z * 0
         );
+        gameObj.localScale = infSize;
         if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking){
             velocity = doubled;
-            gameObj.localScale = new Vector3(1.5f,1f,1.5f);
+            StartCoroutine("size", 1.5);
             isSprinting = true;
         }
         else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
             velocity = halved;
-            gameObj.localScale = new Vector3(0.5f,1f,0.5f);
+            StartCoroutine("size", 0.5);
             isSneaking = true;
         }
         else
         {
             velocity = based;
-            gameObj.localScale = new Vector3(1f,1f,1f);
+            StartCoroutine("size", 1);
             isSneaking = false;
             isSprinting = false;
         }
@@ -123,5 +125,19 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position -= transform.forward * velocity * Time.deltaTime * 2;
         }
+    }
+    IEnumerator size(float target)
+    {
+        Vector3 vel = Vector3.zero;
+        Vector3 targetSize = new Vector3(target,1,target);
+        float diff = Vector3.Distance(infSize,targetSize);
+        while (diff > 0.02f)
+        {
+            infSize = Vector3.SmoothDamp(infSize, targetSize, ref vel, 0.5f);
+            diff = Vector3.Distance(infSize, targetSize);
+            yield return null;
+        }
+        infSize = targetSize;
+
     }
 }
