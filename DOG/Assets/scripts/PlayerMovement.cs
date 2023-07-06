@@ -10,15 +10,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask wall;
     [SerializeField] Transform wallCheck;
     [SerializeField] Transform gameObj;
+    [SerializeField] Transform deadCheck;
     public Vector3 infSize;
     float based;
     float doubled;
     float halved;
     bool isSprinting;
     bool isSneaking;
+    public bool attacked;
+    
 
     Vector2 input;
     float angle;
+    Vector3 lastPosition;
 
     Quaternion targetRotation;
     Transform cam;
@@ -34,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         cam = Camera.main.transform;
+        lastPosition = transform.position;
     }
 
     void Update()
@@ -44,7 +49,39 @@ public class PlayerMovement : MonoBehaviour
 
         CalculateDirection();
         Rotation();
-        Move();
+        
+        if ( transform.position == lastPosition ){
+            StartCoroutine("size", 0.5);
+            Debug.Log("wow");
+        }
+        Debug.Log(lastPosition);
+        Debug.Log(transform.position);
+        lastPosition = transform.position;
+        if (!attacked)
+        {
+            Move();
+            if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking){
+                velocity = doubled;
+                StartCoroutine("size", 1.5);
+                isSprinting = true;
+            }
+            else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
+                velocity = halved;
+                StartCoroutine("size", 0.5);
+                isSneaking = true;
+            }
+            else
+            {
+                velocity = based;
+                StartCoroutine("size", 1);
+                isSneaking = false;
+                isSprinting = false;
+            }
+        }
+        if (attacked)
+        {
+            
+        }
         walled();
         gameObj.transform.eulerAngles = new Vector3(
             gameObj.transform.eulerAngles.x * 0,
@@ -52,29 +89,7 @@ public class PlayerMovement : MonoBehaviour
             gameObj.transform.eulerAngles.z * 0
         );
         gameObj.localScale = infSize;
-        if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking){
-            velocity = doubled;
-            StartCoroutine("size", 1.5);
-            isSprinting = true;
-        }
-        else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
-            velocity = halved;
-            StartCoroutine("size", 0.5);
-            isSneaking = true;
-        }
-        else
-        {
-            velocity = based;
-            StartCoroutine("size", 1);
-            isSneaking = false;
-            isSprinting = false;
-        }
-
-        /*
-        move = controls.Gameplay.Move.ReadValue<Vector2>();
-        Vector2 m = new Vector2(move.x,move.y) * Time.deltaTime;
-        transform.Translate(m, Space.World);
-        */
+        
     }
 
     void GetInput()
@@ -139,5 +154,12 @@ public class PlayerMovement : MonoBehaviour
         }
         infSize = targetSize;
 
+    }
+    private void OnTrigger(Collider other)
+    {
+        if (other.gameObject.CompareTag("coyote"))
+        {
+            attacked=true;
+        }
     }
 }

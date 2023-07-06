@@ -9,6 +9,7 @@ public class bunnyMovement : MonoBehaviour
 
     public Transform player;
     public Transform playerReal;
+    public rabbitCounter activator;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -21,6 +22,8 @@ public class bunnyMovement : MonoBehaviour
     public float sightRange;
     public bool playerInSightRange;
     float panicTime = 0f;
+    float timer = 25f;
+    bool notStop = true;
 
 
     private void Awake()
@@ -30,14 +33,39 @@ public class bunnyMovement : MonoBehaviour
     }
     private void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        
-        if(!playerInSightRange) Idle();
-        if(playerInSightRange) Run();
-        if(panicTime > 0)
+        if(notStop)
         {
-            panicTime -= Time.deltaTime;
-            agent.SetDestination(-playerReal.position);
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            
+            if(!playerInSightRange) 
+            {
+                Idle();
+                GetComponent<NavMeshAgent>().speed = 10;
+                if(walkPointSet)
+                {
+                    if(timer>0)
+                    {
+                        timer -= Time.deltaTime;
+                    }
+                    else{
+                        walkPointSet = false;
+
+                        timer = 25f;
+                    }
+                }
+                else{
+                    timer = 25f;
+                }
+            }
+            if(playerInSightRange) {
+                Run();
+                GetComponent<NavMeshAgent>().speed = 25; 
+            }
+            if(panicTime > 0)
+            {
+                panicTime -= Time.deltaTime;
+                agent.SetDestination(transform.position - ((playerReal.position - transform.position).normalized * 5));
+            }
         }
     }
 
@@ -52,7 +80,6 @@ public class bunnyMovement : MonoBehaviour
 
         //Walkpoint reached
         if (distanceToWalkPoint.magnitude < 1f)
-            StartCoroutine (IdleSpot ());
             walkPointSet = false;
     }
     private void SearchWalkPoint()
@@ -75,8 +102,15 @@ public class bunnyMovement : MonoBehaviour
         Gizmos.color=Color.red;
         Gizmos.DrawWireSphere(transform.position,sightRange);
     }
-    IEnumerator IdleSpot()
+    private void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(Random.Range(2,10));
+        if (other.gameObject.name == "obi")
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<NavMeshAgent>().enabled = false;
+            notStop = false;
+            activator.rabbits+=1;
+        }
     }
 }
