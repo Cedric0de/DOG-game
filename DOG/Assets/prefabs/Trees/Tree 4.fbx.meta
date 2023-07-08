@@ -3,7 +3,22 @@ guid: 75f511f1a7d815243b48c09623d23163
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Base
+    second: {fileID: 2100000, guid: 1b761c59268a7784d88e9e7527cf21f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leaf Accent
+    second: {fileID: 2100000, guid: 2c617e051978a494586f8db13fd8c865, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leaf Main
+    second: {fileID: 2100000, guid: 265ad940483ff3d42b73a47ee1896e8a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

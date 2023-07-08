@@ -125,7 +125,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Physics.CheckSphere(wallCheck.position, .2f, wall))
         {
-            transform.position -= transform.forward * velocity * Time.deltaTime * 2;
+            //transform.position -= transform.forward * velocity * Time.deltaTime * 2;
+            transform.position -= transform.forward * velocity * Time.deltaTime * 1;
+
+
         }
     }
     private void OnTriggerEnter(Collider other)

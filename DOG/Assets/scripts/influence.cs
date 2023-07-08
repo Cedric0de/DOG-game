@@ -21,6 +21,7 @@ public class influence : MonoBehaviour
     public GameObject button;
     public GameObject obi_final;
     public GameObject dust;
+    //Vector3 growFast;
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +31,11 @@ public class influence : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunHash = Animator.StringToHash("isRun");
         isSneakHash = Animator.StringToHash("isSneak");
-
+        //growFast = 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRun = animator.GetBool(isRunHash);
@@ -150,9 +151,9 @@ public class influence : MonoBehaviour
         if(dist>1f)
         {
             if(size>transform.localScale.x)
-                infSize += new Vector3(growSpeed*Time.deltaTime,0,growSpeed*Time.deltaTime);
+                infSize += new Vector3(growSpeed*Time.smoothDeltaTime,0,growSpeed*Time.smoothDeltaTime);
             if(size<transform.localScale.x)
-                infSize -= new Vector3(growSpeed*Time.deltaTime,0,growSpeed*Time.deltaTime);
+                infSize -= new Vector3(growSpeed*Time.smoothDeltaTime,0,growSpeed*Time.smoothDeltaTime);
         }
     }
 }
