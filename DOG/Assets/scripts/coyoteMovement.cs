@@ -24,8 +24,10 @@ public class coyoteMovement : MonoBehaviour
     float timer = 25f;
     bool notStop = true;
     float respawnTime = 0f;
-    int mash = 0;
     bool attacking = false;
+
+    public GameObject coyoteMesh;
+    public GameObject coyoteFaintMesh;
 
 
     private void Awake()
@@ -37,19 +39,29 @@ public class coyoteMovement : MonoBehaviour
     {
         if(!notStop)
         {
-            if(respawnTime>0)
+            if(!obi.attacked)
             {
-                respawnTime -= Time.deltaTime;
-            }
-            else{
-                GetComponent<MeshRenderer>().enabled = true;
-                GetComponent<BoxCollider>().enabled = true;
-                GetComponent<NavMeshAgent>().enabled = true;
-                notStop = true;
+                if(respawnTime>0)
+                {
+                    respawnTime -= Time.deltaTime;
+                    coyoteFaintMesh.SetActive(true);
+                    coyoteFaintMesh.transform.eulerAngles = new Vector3(
+                        coyoteFaintMesh.transform.eulerAngles.x * 1,
+                        coyoteFaintMesh.transform.eulerAngles.y * 1,
+                        coyoteFaintMesh.transform.eulerAngles.z * 1
+                    );
+                }
+                else{
+                    coyoteMesh.SetActive(true);
+                    GetComponent<BoxCollider>().enabled = true;
+                    GetComponent<NavMeshAgent>().enabled = true;
+                    notStop = true;
+                }
             }
         }
         if(notStop)
         {
+            coyoteFaintMesh.SetActive(false);
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             
             if(!playerInSightRange) 
@@ -74,32 +86,20 @@ public class coyoteMovement : MonoBehaviour
             }
             if(playerInSightRange)
             {
-                GetComponent<NavMeshAgent>().speed = 25; 
-                Run();
+                if(!obi.attacked)
+                {
+                    GetComponent<NavMeshAgent>().speed = 40; 
+                    Run();
+                }
             }
             if(attackTime > 0)
             {
                 attackTime -= Time.deltaTime;
                 agent.SetDestination(player.position);
             }
-        }
-        if(attacking)
-        {
-            if(mash<=0)
+            if(obi.attacked)
             {
-                mash += Random.Range(8,15);
-            }
-            if(mash>0)
-            {
-                if(Input.GetKeyDown("joystick button 1") || Input.GetKeyDown("space"))
-                {
-                    mash-=1;
-                }
-            }
-            if(mash<=0)
-            {
-                obi.attacked = false;
-                attacking = false;
+                Idle();
             }
         }
     }
@@ -126,12 +126,12 @@ public class coyoteMovement : MonoBehaviour
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround) && (walkPoint.x<172 && walkPoint.x>-170) && (walkPoint.y<192 && walkPoint.y>-195))
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
             walkPointSet = true;
     }
     private void Run()
     {
-        attackTime = 3f;
+        attackTime = 2f;
     }
     private void OnDrawGizmosSelected()
     {
@@ -140,15 +140,17 @@ public class coyoteMovement : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "obi")
+        if(!obi.attacked)
         {
-            GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<BoxCollider>().enabled = false;
-            GetComponent<NavMeshAgent>().enabled = false;
-            obi.attacked = true;
-            notStop = false;
-            respawnTime = 30f;
-            attacking =true;
+            if (other.gameObject.name == "obi")
+            {
+                GetComponent<BoxCollider>().enabled = false;
+                GetComponent<NavMeshAgent>().enabled = false;
+                coyoteMesh.SetActive(false);
+                obi.attacked = true;
+                notStop = false;
+                respawnTime = 30f;
+            }
         }
     }
 

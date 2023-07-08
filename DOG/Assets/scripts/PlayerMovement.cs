@@ -11,13 +11,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform wallCheck;
     [SerializeField] Transform gameObj;
     [SerializeField] Transform deadCheck;
-    public Vector3 infSize;
     float based;
     float doubled;
     float halved;
     bool isSprinting;
     bool isSneaking;
     public bool attacked;
+    public influence inf;
+    public float maxStamina;
+    public float stamina;
     
 
     Vector2 input;
@@ -29,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
     
     void Awake()
     {
-        based = velocity;
-        doubled = velocity*2;
+        based = velocity*1.5f;
+        doubled = velocity*2.5f;
         halved = velocity*0.5f;
         isSprinting = false;
         isSneaking = false;
@@ -49,38 +51,24 @@ public class PlayerMovement : MonoBehaviour
 
         CalculateDirection();
         Rotation();
-        
-        if ( transform.position == lastPosition ){
-            StartCoroutine("size", 0.5);
-            Debug.Log("wow");
-        }
-        Debug.Log(lastPosition);
-        Debug.Log(transform.position);
-        lastPosition = transform.position;
         if (!attacked)
         {
             Move();
-            if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking){
+            if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking && !inf.cantrun){
                 velocity = doubled;
-                StartCoroutine("size", 1.5);
                 isSprinting = true;
+                stamina -= 2*Time.deltaTime;
             }
             else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
                 velocity = halved;
-                StartCoroutine("size", 0.5);
                 isSneaking = true;
             }
             else
             {
                 velocity = based;
-                StartCoroutine("size", 1);
                 isSneaking = false;
                 isSprinting = false;
             }
-        }
-        if (attacked)
-        {
-            
         }
         walled();
         gameObj.transform.eulerAngles = new Vector3(
@@ -88,7 +76,6 @@ public class PlayerMovement : MonoBehaviour
             gameObj.transform.eulerAngles.y * 0,
             gameObj.transform.eulerAngles.z * 0
         );
-        gameObj.localScale = infSize;
         
     }
 
@@ -141,25 +128,18 @@ public class PlayerMovement : MonoBehaviour
             transform.position -= transform.forward * velocity * Time.deltaTime * 2;
         }
     }
-    IEnumerator size(float target)
+    private void OnTriggerEnter(Collider other)
     {
-        Vector3 vel = Vector3.zero;
-        Vector3 targetSize = new Vector3(target,1,target);
-        float diff = Vector3.Distance(infSize,targetSize);
-        while (diff > 0.02f)
+        if (other.gameObject.CompareTag("bush"))
         {
-            infSize = Vector3.SmoothDamp(infSize, targetSize, ref vel, 0.5f);
-            diff = Vector3.Distance(infSize, targetSize);
-            yield return null;
-        }
-        infSize = targetSize;
-
+            inf.bushed = true;
+        } 
     }
-    private void OnTrigger(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("coyote"))
+        if (other.gameObject.CompareTag("bush"))
         {
-            attacked=true;
+            inf.bushed = false;
         }
     }
 }

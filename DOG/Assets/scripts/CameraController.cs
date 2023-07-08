@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public float moveSpeed = 5;
     public float turnSpeed = 10;
     public float smoothSpeed = 0.5f;
+    [SerializeField] Transform button;
 
     Quaternion targetRotation;
     Vector3 targetPos;
@@ -37,6 +38,7 @@ public class CameraController : MonoBehaviour
     {
         targetRotation = Quaternion.LookRotation(target.position - transform.position);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
+        button.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
     }
 
     IEnumerator RotateAroundTarget(float angle)

@@ -40,7 +40,7 @@ public class bunnyMovement : MonoBehaviour
             if(!playerInSightRange) 
             {
                 Idle();
-                GetComponent<NavMeshAgent>().speed = 10;
+                GetComponent<NavMeshAgent>().speed = 15;
                 if(walkPointSet)
                 {
                     if(timer>0)
@@ -59,12 +59,13 @@ public class bunnyMovement : MonoBehaviour
             }
             if(playerInSightRange) {
                 Run();
-                GetComponent<NavMeshAgent>().speed = 25; 
+                GetComponent<NavMeshAgent>().speed = 30; 
             }
             if(panicTime > 0)
             {
                 panicTime -= Time.deltaTime;
-                agent.SetDestination(transform.position - ((playerReal.position - transform.position).normalized * 5));
+                agent.SetDestination(transform.position - ((playerReal.position - transform.position).normalized * 10));
+                GetComponent<NavMeshAgent>().speed = 30;
             }
         }
     }
