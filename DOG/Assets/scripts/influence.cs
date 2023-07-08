@@ -74,12 +74,12 @@ public class influence : MonoBehaviour
                 if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking && !cantrun){
                         grow(2f);
                         isSprinting = true;
-                        animator.SetBool("isRun", true);
+                        animator.SetBool(isRunHash, true);
                     }
                     else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
                         grow(0.5f);
                         isSneaking = true;
-                        animator.SetBool("isSneak", true);
+                        animator.SetBool(isSneakHash, true);
                         if (obi.stamina<obi.maxStamina)
                         {
                             obi.stamina += 4*Time.deltaTime;
@@ -90,8 +90,8 @@ public class influence : MonoBehaviour
                         grow(1.5f);
                         isSneaking = false;
                         isSprinting = false;
-                        animator.SetBool("isSneak", false);
-                        animator.SetBool("isRun", false);
+                        animator.SetBool(isSneakHash, false);
+                        animator.SetBool(isRunHash, false);
                         if (obi.stamina<obi.maxStamina)
                         {
                             obi.stamina += 2*Time.deltaTime;
@@ -111,6 +111,9 @@ public class influence : MonoBehaviour
         else if(bushed && !obi.attacked)
         {
             grow(0f);
+            animator.SetBool(isSneakHash, false);
+            animator.SetBool(isRunHash, false);
+            animator.SetBool(isWalkingHash, false);
             if(obi.stamina<obi.maxStamina)
             {
                 obi.stamina += 4*Time.deltaTime;

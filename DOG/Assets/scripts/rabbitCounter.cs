@@ -12,7 +12,7 @@ public class rabbitCounter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxRabbit = 16;
+        maxRabbit = 20;
     }
 
     // Update is called once per frame

@@ -3,7 +3,27 @@ guid: 39d1ede4624d3d9428facb63ea75d8bd
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye Color
+    second: {fileID: 2100000, guid: 6721a1f25ccbfa34194d112d951e9105, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Nose Color
+    second: {fileID: 2100000, guid: dc4030919ef464d46af02e9de749ec48, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rabbit Skin
+    second: {fileID: 2100000, guid: b9592a68a58536e4eba434bfa34f9d8f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rabbit Skin 2
+    second: {fileID: 2100000, guid: dd5c0cb886f18984f993d94b8f7b0c43, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

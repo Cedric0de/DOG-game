@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class coyoteMovement : MonoBehaviour
 {
+    Animator animator;
     public PlayerMovement obi;
     public NavMeshAgent agent;
 
@@ -25,18 +26,47 @@ public class coyoteMovement : MonoBehaviour
     bool notStop = true;
     float respawnTime = 0f;
     bool attacking = false;
+    float wait;
+    Vector3 first;
+    Vector3 second;
 
     public GameObject coyoteMesh;
     public GameObject coyoteFaintMesh;
+    int isIdleHash;
 
 
     private void Awake()
     {
         player = GameObject.Find("influence").transform;
         agent = GetComponent<NavMeshAgent>();
+        wait = 0f;
+        second=transform.position;
+        animator = coyoteMesh.GetComponent<Animator>();
+        isIdleHash = Animator.StringToHash("isIdle");
+
     }
     private void Update()
     {
+        bool isIdle = animator.GetBool(isIdleHash);
+        if(wait>=0.1f)
+        {
+            first=transform.position;
+            if(first.x==second.x && first.z==second.z)
+            {
+                animator.SetBool(isIdleHash, true);
+            }
+            else{
+                animator.SetBool(isIdleHash, false);
+            }
+            wait=0;
+        }
+        else{
+            wait+=Time.deltaTime;
+        }
+        if(wait==0)
+        {
+            second=transform.position;
+        }
         if(!notStop)
         {
             if(!obi.attacked)
@@ -88,7 +118,7 @@ public class coyoteMovement : MonoBehaviour
             {
                 if(!obi.attacked)
                 {
-                    GetComponent<NavMeshAgent>().speed = 40; 
+                    GetComponent<NavMeshAgent>().speed = 30; 
                     Run();
                 }
             }
@@ -149,7 +179,7 @@ public class coyoteMovement : MonoBehaviour
                 coyoteMesh.SetActive(false);
                 obi.attacked = true;
                 notStop = false;
-                respawnTime = 30f;
+                respawnTime = 20f;
             }
         }
     }
