@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 123200547068769211}
   - component: {fileID: 3898544614531267614}
   - component: {fileID: 1296648436232554708}
-  - component: {fileID: 8021409102382405208}
+  - component: {fileID: 618964954}
+  - component: {fileID: 5511599810056003515}
   m_Layer: 7
   m_Name: hydrant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &123200547068769211
 Transform:
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792178964584638721}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 7, z: 5}
   m_ConstrainProportionsScale: 0
@@ -85,8 +86,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8021409102382405208
-MeshCollider:
+--- !u!65 &618964954
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,7 +96,22 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6041574342122331735, guid: e8f9cc066944edf4a8cfcc7ea94eadb5, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.30652183, y: 1.2319406, z: 0.30652183}
+  m_Center: {x: -0.0000029563905, y: 0.6159703, z: 0.00000036954881}
+--- !u!208 &5511599810056003515
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 792178964584638721}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.15300001, y: 0.31100002, z: 0.15300001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.31100002, z: 0}
+  m_TimeToStationary: 0.5

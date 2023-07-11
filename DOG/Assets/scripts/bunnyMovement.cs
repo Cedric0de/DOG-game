@@ -49,10 +49,10 @@ public class bunnyMovement : MonoBehaviour
     {
         bool isIdle = animator.GetBool(isIdleHash);
         bool isIdleAlt = animator.GetBool(isIdleAltHash);
-        if(wait>=0.1f)
+        if(wait>=0.01f)
         {
             first=transform.position;
-            if(first.x==second.x && first.z==second.z && !alt)
+            if(first.x==second.x && first.z==second.z)
             {
                 animator.SetBool(isIdleHash, true);
             }
@@ -75,7 +75,7 @@ public class bunnyMovement : MonoBehaviour
             if(!playerInSightRange) 
             {
                 Idle();
-                GetComponent<NavMeshAgent>().speed = 15;
+                agent.speed = 15;
                 if(walkPointSet)
                 {
                     if(timer>0)
@@ -94,42 +94,45 @@ public class bunnyMovement : MonoBehaviour
             }
             if(playerInSightRange) {
                 Run();
-                GetComponent<NavMeshAgent>().speed = 30; 
+                agent.speed = 40; 
+                Debug.Log("found you");
             }
             if(panicTime > 0)
             {
                 panicTime -= Time.deltaTime;
-                agent.SetDestination(transform.position - ((playerReal.position - transform.position).normalized * 10));
-                GetComponent<NavMeshAgent>().speed = 30;
+                agent.SetDestination(transform.position + (transform.position - playerReal.position));
+                //GetComponent<NavMeshAgent>().speed = 30;
             }
         }
     }
 
     private void Idle()
     {
-        if(randomChance==1)
-        {
-            animator.SetBool(isIdleAltHash, true);
-            alt = true;
-            if(animator.GetCurrentAnimatorStateInfo(0).IsName("metarig_Idle Alt"))
-            {
-                animator.SetBool(isIdleAltHash, false);
-                alt = false;
-                randomChance = 2;
-            }
+        // if(randomChance==1)
+        // {
+        //     animator.SetBool(isIdleAltHash, true);
+        //     alt = true;
+        //     if(animator.GetCurrentAnimatorStateInfo(0).IsName("metarig_Idle Alt"))
+        //     {
+        //         animator.SetBool(isIdleAltHash, false);
+        //         alt = false;
+        //         randomChance = 2;
+        //     }
+        // }
+        //else{
+        if (!walkPointSet) {
+            SearchWalkPoint();
         }
-        else{
-            if (!walkPointSet) SearchWalkPoint();
 
-            if (walkPointSet)
-                agent.SetDestination(walkPoint);
-        }
+        if (walkPointSet)
+            agent.SetDestination(walkPoint);
+        //}
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
         //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f && !alt)
+        if (distanceToWalkPoint.magnitude < 1f)
         {
             walkPointSet = false;
-            randomChance = Random.Range(1,4);
+            //randomChance = Random.Range(1,4);
         }
     }
     private void SearchWalkPoint()
@@ -156,7 +159,7 @@ public class bunnyMovement : MonoBehaviour
     {
         if (other.gameObject.name == "obi")
         {
-            GetComponent<MeshRenderer>().enabled = false;
+            rabbitMesh.SetActive(false);
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<NavMeshAgent>().enabled = false;
             notStop = false;

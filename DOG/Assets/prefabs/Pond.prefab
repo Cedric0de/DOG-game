@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4168006998269915420}
   - component: {fileID: 3850507024812439088}
+  - component: {fileID: 1205736319042404956}
   m_Layer: 7
   m_Name: Pond
   m_TagString: Untagged
@@ -104,6 +105,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 54.072113, y: 17.685635, z: 56.033653}
   m_Center: {x: -11.397942, y: -8.342817, z: -36.685894}
+--- !u!208 &1205736319042404956
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168006998269915419}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 27, y: 8.5, z: 28}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -11.4, y: -8, z: -36.6}
+  m_TimeToStationary: 0.5
 --- !u!1 &4168006999654700602
 GameObject:
   m_ObjectHideFlags: 0

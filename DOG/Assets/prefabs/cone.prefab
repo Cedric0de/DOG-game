@@ -13,12 +13,13 @@ GameObject:
   - component: {fileID: 103065383560060951}
   - component: {fileID: 1073047162318866331}
   - component: {fileID: 6271344300500431996}
+  - component: {fileID: 9665470045805540}
   m_Layer: 7
   m_Name: cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &1235399957320784760
 Transform:
@@ -113,3 +114,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4899327, y: 0.8723995, z: 0.4899319}
   m_Center: {x: 0.0000014781953, y: 0.43619975, z: -0.00000038146976}
+--- !u!208 &9665470045805540
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904694007067509186}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.245, y: 0.21400002, z: 0.245}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.21400002, z: 0}
+  m_TimeToStationary: 0.5

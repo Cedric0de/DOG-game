@@ -45,7 +45,7 @@ public class coyoteMovement : MonoBehaviour
         isIdleHash = Animator.StringToHash("isIdle");
 
     }
-    private void Update()
+    private void FixedUpdate()
     {
         bool isIdle = animator.GetBool(isIdleHash);
         if(wait>=0.1f)

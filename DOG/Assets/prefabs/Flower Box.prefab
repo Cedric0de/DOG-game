@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 4623536121438894642}
   - component: {fileID: 1375446098021615307}
   - component: {fileID: 1164974573958555378}
+  - component: {fileID: 9212726279466724904}
   m_Layer: 7
   m_Name: Flower Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &4427354148333305860
 Transform:
@@ -97,3 +98,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1420393, y: 0.9312372, z: 1.1336011}
   m_Center: {x: 0.02790308, y: 0.455412, z: -0.03949795}
+--- !u!208 &9212726279466724904
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804533535440679447}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.57100004, y: 0.17, z: 0.56700003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.028, y: 0.15900001, z: -0.039}
+  m_TimeToStationary: 0.5
