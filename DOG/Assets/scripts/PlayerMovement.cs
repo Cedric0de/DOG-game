@@ -123,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void walled()
     {
-        if (Physics.CheckSphere(wallCheck.position, .2f, wall))
+        if (Physics.CheckSphere(wallCheck.position, .4f, wall))
         {
             //transform.position -= transform.forward * velocity * Time.deltaTime * 2;
             transform.position -= transform.forward * velocity * Time.deltaTime * 1;
