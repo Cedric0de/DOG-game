@@ -32,7 +32,7 @@ public class bunnyMovement : MonoBehaviour
     int isIdleHash;
     int isIdleAltHash;
     int randomChance;
-    bool alt;
+    //bool alt;
 
 
     private void Awake()
@@ -43,7 +43,7 @@ public class bunnyMovement : MonoBehaviour
         animator = rabbitMesh.GetComponent<Animator>();
         isIdleHash = Animator.StringToHash("isIdle");
         isIdleAltHash = Animator.StringToHash("isIdleAlt");
-        alt = false;
+        //alt = false;
     }
     private void Update()
     {
@@ -85,17 +85,16 @@ public class bunnyMovement : MonoBehaviour
                     else{
                         walkPointSet = false;
 
-                        timer = 25f;
+                        timer = 10f;
                     }
                 }
                 else{
-                    timer = 25f;
+                    timer = 10f;
                 }
             }
             if(playerInSightRange) {
                 Run();
                 agent.speed = 40; 
-                Debug.Log("found you");
             }
             if(panicTime > 0)
             {

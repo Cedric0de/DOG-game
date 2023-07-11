@@ -25,7 +25,6 @@ public class coyoteMovement : MonoBehaviour
     float timer = 25f;
     bool notStop = true;
     float respawnTime = 0f;
-    bool attacking = false;
     float wait;
     Vector3 first;
     Vector3 second;
@@ -107,11 +106,11 @@ public class coyoteMovement : MonoBehaviour
                     else{
                         walkPointSet = false;
 
-                        timer = 25f;
+                        timer = 10f;
                     }
                 }
                 else{
-                    timer = 25f;
+                    timer =10f;
                 }
             }
             if(playerInSightRange)

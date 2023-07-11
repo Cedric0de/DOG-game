@@ -9,10 +9,12 @@ public class rabbitCounter : MonoBehaviour
     public int rabbits;
     public Text counter;
     int maxRabbit;
+    public bool win;
     // Start is called before the first frame update
     void Start()
     {
         maxRabbit = 20;
+        win = false;
     }
 
     // Update is called once per frame
@@ -22,6 +24,7 @@ public class rabbitCounter : MonoBehaviour
         if(rabbits==maxRabbit)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            win = true;
         }
     }
     void updateCounter(int bunnies, int max)

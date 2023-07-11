@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class influence : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class influence : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKey("joystick button 3")) && !isSneaking && !cantrun) 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRun = animator.GetBool(isRunHash);
         bool isSneak = animator.GetBool(isSneakHash);
@@ -77,7 +80,7 @@ public class influence : MonoBehaviour
                         animator.SetBool(isRunHash, true);
                     }
                     else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
-                        grow(0.5f);
+                        grow(0.8f);
                         isSneaking = true;
                         animator.SetBool(isSneakHash, true);
                         if (obi.stamina<obi.maxStamina)
