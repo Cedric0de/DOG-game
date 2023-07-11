@@ -122,7 +122,9 @@ public class PlayerMovement : MonoBehaviour
     }
     void Move()
     {
-        transform.position += transform.forward * velocity * Time.deltaTime;
+        if (CanMove) {
+            transform.position += transform.forward * velocity * Time.deltaTime;
+        }
     }
     void walled()
     {

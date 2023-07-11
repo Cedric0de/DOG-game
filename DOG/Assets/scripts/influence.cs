@@ -41,7 +41,7 @@ public class influence : MonoBehaviour
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRun = animator.GetBool(isRunHash);
         bool isSneak = animator.GetBool(isSneakHash);
-
+        
         if(obi.attacked)
         {
             button.SetActive(true);
@@ -114,9 +114,6 @@ public class influence : MonoBehaviour
         else if(bushed && !obi.attacked)
         {
             grow(0f);
-            animator.SetBool(isSneakHash, false);
-            animator.SetBool(isRunHash, false);
-            animator.SetBool(isWalkingHash, false);
             if(obi.stamina<obi.maxStamina)
             {
                 obi.stamina += 4*Time.deltaTime;

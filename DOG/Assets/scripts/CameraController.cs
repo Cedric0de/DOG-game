@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour
     public float turnSpeed = 10;
     public float smoothSpeed = 0.5f;
     [SerializeField] Transform button;
+    public PlayerMovement obi;
 
     Quaternion targetRotation;
     Vector3 targetPos;
@@ -20,11 +21,13 @@ public class CameraController : MonoBehaviour
         MoveWithTarget();
         LookAtTarget();
 
-        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown("joystick button 5") ||  (Input.GetKey("right"))) && !smoothRotating){
-            StartCoroutine("RotateAroundTarget", 45);
-        }
-        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown("joystick button 4") ||  (Input.GetKey("left"))) && !smoothRotating){
-            StartCoroutine("RotateAroundTarget", -45);
+        if(obi.CanMove){
+            if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown("joystick button 5") ||  (Input.GetKey("right"))) && !smoothRotating){
+                StartCoroutine("RotateAroundTarget", 45);
+            }
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown("joystick button 4") ||  (Input.GetKey("left"))) && !smoothRotating){
+                StartCoroutine("RotateAroundTarget", -45);
+            }
         }
     }
 
