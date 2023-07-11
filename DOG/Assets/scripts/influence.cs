@@ -120,6 +120,9 @@ public class influence : MonoBehaviour
             }
             if(mash<=0)
             {
+                FindObjectOfType<AudioManager>().Stop("Fight Cloud");
+                FindObjectOfType<AudioManager>().Play("Coyote Dies");
+                FindObjectOfType<AudioManager>().Play("Win Fight");
                 obi.attacked = false;
             }
         }
