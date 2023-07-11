@@ -163,6 +163,7 @@ public class bunnyMovement : MonoBehaviour
             GetComponent<NavMeshAgent>().enabled = false;
             notStop = false;
             activator.rabbits+=1;
+            FindObjectOfType<AudioManager>().Play("Rabbit Squeek");
         }
     }
 }
