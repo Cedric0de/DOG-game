@@ -5,10 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class influence : MonoBehaviour
 {
-    Animator animator;
-    int isWalkingHash;
-    int isRunHash;
-    int isSneakHash;
     public float growSpeed;
     bool isSprinting = false;
     bool isSneaking = false;
@@ -28,20 +24,12 @@ public class influence : MonoBehaviour
     void Start()
     {
         staminaBar.SetMaxStamina(obi.maxStamina);
-        animator = obi_final.GetComponent<Animator>();
-        isWalkingHash = Animator.StringToHash("isWalking");
-        isRunHash = Animator.StringToHash("isRun");
-        isSneakHash = Animator.StringToHash("isSneak");
         //growFast = 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        bool isWalking = animator.GetBool(isWalkingHash);
-        bool isRun = animator.GetBool(isRunHash);
-        bool isSneak = animator.GetBool(isSneakHash);
-        
         if(obi.attacked)
         {
             button.SetActive(true);
@@ -72,16 +60,13 @@ public class influence : MonoBehaviour
             if(obi.CanMove){
                 if((Input.GetAxisRaw("Horizontal")>0.4) || (Input.GetAxisRaw("Vertical")>0.4) || (Input.GetAxisRaw("Horizontal")<-0.4) || (Input.GetAxisRaw("Vertical")<-0.4))
                 {
-                    animator.SetBool(isWalkingHash, true);
                     if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking && !cantrun){
                             grow(2f);
                             isSprinting = true;
-                            animator.SetBool(isRunHash, true);
                         }
                         else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
                             grow(0.8f);
                             isSneaking = true;
-                            animator.SetBool(isSneakHash, true);
                             if (obi.stamina<obi.maxStamina)
                             {
                                 obi.stamina += 4*Time.deltaTime;
@@ -92,8 +77,6 @@ public class influence : MonoBehaviour
                             grow(1.5f);
                             isSneaking = false;
                             isSprinting = false;
-                            animator.SetBool(isSneakHash, false);
-                            animator.SetBool(isRunHash, false);
                             if (obi.stamina<obi.maxStamina)
                             {
                                 obi.stamina += 2*Time.deltaTime;
@@ -102,7 +85,6 @@ public class influence : MonoBehaviour
                     }
                 else
                 {
-                    animator.SetBool(isWalkingHash, false);
                     grow(0.5f);
                     if (obi.stamina<obi.maxStamina)
                     {
