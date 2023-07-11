@@ -179,6 +179,7 @@ public class coyoteMovement : MonoBehaviour
                 obi.attacked = true;
                 notStop = false;
                 respawnTime = 20f;
+                FindObjectOfType<AudioManager>().Play("Fight Cloud");
             }
         }
     }

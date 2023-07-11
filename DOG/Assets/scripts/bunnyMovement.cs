@@ -164,6 +164,7 @@ public class bunnyMovement : MonoBehaviour
             notStop = false;
             activator.rabbits+=1;
             FindObjectOfType<AudioManager>().Play("Rabbit Squeek");
+            FindObjectOfType<AudioManager>().Play("Rabbit Pickup");
         }
     }
 }
