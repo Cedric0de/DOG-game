@@ -38,8 +38,6 @@ public class influence : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKey("joystick button 3")) && !isSneaking && !cantrun) 
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         bool isWalking = animator.GetBool(isWalkingHash);
         bool isRun = animator.GetBool(isRunHash);
         bool isSneak = animator.GetBool(isSneakHash);
@@ -71,43 +69,45 @@ public class influence : MonoBehaviour
         }
         if(!obi.attacked && !bushed)
         {
-            if((Input.GetAxisRaw("Horizontal")>0.4) || (Input.GetAxisRaw("Vertical")>0.4) || (Input.GetAxisRaw("Horizontal")<-0.4) || (Input.GetAxisRaw("Vertical")<-0.4))
-            {
-                animator.SetBool(isWalkingHash, true);
-                if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking && !cantrun){
-                        grow(2f);
-                        isSprinting = true;
-                        animator.SetBool(isRunHash, true);
-                    }
-                    else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
-                        grow(0.8f);
-                        isSneaking = true;
-                        animator.SetBool(isSneakHash, true);
-                        if (obi.stamina<obi.maxStamina)
-                        {
-                            obi.stamina += 4*Time.deltaTime;
-                        }
-                    }
-                    else
-                    {
-                        grow(1.5f);
-                        isSneaking = false;
-                        isSprinting = false;
-                        animator.SetBool(isSneakHash, false);
-                        animator.SetBool(isRunHash, false);
-                        if (obi.stamina<obi.maxStamina)
-                        {
-                            obi.stamina += 2*Time.deltaTime;
-                        }
-                    }
-            }
-            else
-            {
-                animator.SetBool(isWalkingHash, false);
-                grow(0.5f);
-                if (obi.stamina<obi.maxStamina)
+            if(obi.CanMove){
+                if((Input.GetAxisRaw("Horizontal")>0.4) || (Input.GetAxisRaw("Vertical")>0.4) || (Input.GetAxisRaw("Horizontal")<-0.4) || (Input.GetAxisRaw("Vertical")<-0.4))
                 {
-                    obi.stamina += 4*Time.deltaTime;
+                    animator.SetBool(isWalkingHash, true);
+                    if ((Input.GetKey("left shift") || Input.GetKey("joystick button 0")) && !isSneaking && !cantrun){
+                            grow(2f);
+                            isSprinting = true;
+                            animator.SetBool(isRunHash, true);
+                        }
+                        else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
+                            grow(0.8f);
+                            isSneaking = true;
+                            animator.SetBool(isSneakHash, true);
+                            if (obi.stamina<obi.maxStamina)
+                            {
+                                obi.stamina += 4*Time.deltaTime;
+                            }
+                        }
+                        else
+                        {
+                            grow(1.5f);
+                            isSneaking = false;
+                            isSprinting = false;
+                            animator.SetBool(isSneakHash, false);
+                            animator.SetBool(isRunHash, false);
+                            if (obi.stamina<obi.maxStamina)
+                            {
+                                obi.stamina += 2*Time.deltaTime;
+                            }
+                        }
+                    }
+                else
+                {
+                    animator.SetBool(isWalkingHash, false);
+                    grow(0.5f);
+                    if (obi.stamina<obi.maxStamina)
+                    {
+                        obi.stamina += 4*Time.deltaTime;
+                    }
                 }
             }
         }

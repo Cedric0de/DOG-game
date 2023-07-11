@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public influence inf;
     public float maxStamina;
     public float stamina;
+    public bool CanMove;
     
 
     Vector2 input;
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         halved = velocity*0.5f;
         isSprinting = false;
         isSneaking = false;
+        CanMove = true;
     }
     void Start()
     {
@@ -82,26 +84,27 @@ public class PlayerMovement : MonoBehaviour
     void GetInput()
     {
 
-
-        if (Input.GetAxisRaw("Horizontal")>0.4){
-            input.x = 1;
-        }
-        else if (Input.GetAxisRaw("Horizontal")<-0.4){
-            input.x = -1;
-        }
-        else
-        {
-            input.x=0;
-        }
-        if (Input.GetAxisRaw("Vertical")>0.4){
-            input.y = 1;
-        }
-        else if (Input.GetAxisRaw("Vertical")<-0.4){
-            input.y = -1;
-        }
-        else
-        {
-            input.y=0;
+        if (CanMove) {
+            if (Input.GetAxisRaw("Horizontal")>0.4){
+                input.x = 1;
+            }
+            else if (Input.GetAxisRaw("Horizontal")<-0.4){
+                input.x = -1;
+            }
+            else
+            {
+                input.x=0;
+            }
+            if (Input.GetAxisRaw("Vertical")>0.4){
+                input.y = 1;
+            }
+            else if (Input.GetAxisRaw("Vertical")<-0.4){
+                input.y = -1;
+            }
+            else
+            {
+                input.y=0;
+            }
         }
 
     }

@@ -20,10 +20,10 @@ public class CameraController : MonoBehaviour
         MoveWithTarget();
         LookAtTarget();
 
-        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown("joystick button 5")) && !smoothRotating){
+        if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown("joystick button 5") ||  (Input.GetKey("right"))) && !smoothRotating){
             StartCoroutine("RotateAroundTarget", 45);
         }
-        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown("joystick button 4")) && !smoothRotating){
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown("joystick button 4") ||  (Input.GetKey("left"))) && !smoothRotating){
             StartCoroutine("RotateAroundTarget", -45);
         }
     }
