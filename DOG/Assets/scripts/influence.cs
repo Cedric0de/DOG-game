@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class influence : MonoBehaviour
 {
@@ -18,18 +19,45 @@ public class influence : MonoBehaviour
     public GameObject button;
     public GameObject obi_final;
     public GameObject dust;
+    public GameObject image;
+    float wait;
+    Vector3 first;
+    Vector3 second;
     //Vector3 growFast;
 
     // Start is called before the first frame update
     void Start()
     {
         staminaBar.SetMaxStamina(obi.maxStamina);
+        second=transform.position;
         //growFast = 
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        if(wait>=0.01f)
+        {
+            first=transform.position;
+            if(first.x==second.x && first.z==second.z)
+            {
+                FindObjectOfType<AudioManager>().Stop("Obi Move Grass");
+
+            }
+            else{
+                FindObjectOfType<AudioManager>().Play("Obi Move Grass");
+            }
+            wait=0;
+        }
+        else{
+            wait+=Time.deltaTime;
+        }
+        if(wait==0)
+        {
+            second=transform.position;
+        }
+
         if(obi.attacked)
         {
             button.SetActive(true);
@@ -49,10 +77,14 @@ public class influence : MonoBehaviour
         if(obi.stamina<=0)
         {
             cantrun=true;
+            FindObjectOfType<AudioManager>().Play("Pant");
+            FindObjectOfType<AudioManager>().Play("No Stam");
+            image.GetComponent<Image>().color = new Color32(255, 0, 0, 255);
         }
         if(cantrun){
             if(obi.stamina>=obi.maxStamina){
                 cantrun=false;
+                image.GetComponent<Image>().color = new Color32(117, 187, 236, 255);
             }
         }
         if(!obi.attacked && !bushed)

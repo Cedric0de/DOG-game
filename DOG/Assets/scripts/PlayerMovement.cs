@@ -21,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public float maxStamina;
     public float stamina;
     public bool CanMove;
+    // private bool path;
+    // private bool pathed;
     
 
     Vector2 input;
@@ -38,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
         isSprinting = false;
         isSneaking = false;
         CanMove = true;
+        // path = false;
+        // pathed = false;
     }
     void Start()
     {
@@ -60,16 +64,35 @@ public class PlayerMovement : MonoBehaviour
                 velocity = doubled;
                 isSprinting = true;
                 stamina -= 2*Time.deltaTime;
+                // if(path){
+                //     FindObjectOfType<AudioManager>().Play("Obi Run Dirt");
+                //     path = false;
+                // }
+                // else{
+                //     FindObjectOfType<AudioManager>().Play("Obi Run Grass");
+                // }
             }
             else if ((Input.GetKey("left ctrl") || Input.GetKey("joystick button 2")) && !isSprinting){
                 velocity = halved;
                 isSneaking = true;
+                // if(path){
+                //     FindObjectOfType<AudioManager>().Play("Obi Walk Dirt");
+                // }
+                // else{
+                    // FindObjectOfType<AudioManager>().Play("Obi Walk Grass");
+                // }
             }
             else
             {
                 velocity = based;
                 isSneaking = false;
                 isSprinting = false;
+                // if(path){
+                //     FindObjectOfType<AudioManager>().Play("Obi Walk Dirt");
+                // }
+                // else{
+                //     FindObjectOfType<AudioManager>().Play("Obi Walk Grass");
+                // }
             }
         }
         walled();
@@ -123,6 +146,9 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         if (CanMove) {
+            if(inf.bushed){
+                FindObjectOfType<AudioManager>().Play("Bushed");
+            }
             transform.position += transform.forward * velocity * Time.deltaTime;
         }
     }
@@ -142,12 +168,26 @@ public class PlayerMovement : MonoBehaviour
         {
             inf.bushed = true;
         } 
+        // if (other.gameObject.CompareTag("path") && !pathed)
+        // {
+        //     path = true;
+        //     pathed = true;
+        // }
+        // else{
+        //     pathed = false;
+        //     FindObjectOfType<AudioManager>().Stop("Obi Run Dirt");
+        // }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("bush"))
         {
             inf.bushed = false;
+            FindObjectOfType<AudioManager>().Stop("Bushed");
         }
+        // if (other.gameObject.CompareTag("path"))
+        // {
+        //     path = false;
+        // }
     }
 }
